@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { BEATS } from '../constants';
+import { useBeat, useBeats } from '../hooks/useBeats';
 import { usePlayer } from '../contexts/PlayerContext';
 import { useCart } from '../contexts/CartContext';
 import BeatCard from '../components/BeatCard';
@@ -12,23 +12,30 @@ const PauseIcon = () => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 
 
 const BeatDetailPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
-    const beat = useMemo(() => BEATS.find(b => b.id === Number(id)), [id]);
+    const { data: beat, isLoading } = useBeat(id);
+    const { data: allBeats } = useBeats();
     const { playBeat, currentBeat, isPlaying } = usePlayer();
     const { addToCart } = useCart();
     
     const relatedBeats = useMemo(() => {
-      if (!beat) return [];
-      return BEATS.filter(b => b.genre === beat.genre && b.id !== beat.id).slice(0, 4);
-    }, [beat]);
+      if (!beat || !allBeats) return [];
+      return allBeats.filter(b => b.genre === beat.genre && b.id.toString() !== beat.id.toString()).slice(0, 4);
+    }, [beat, allBeats]);
+
+    if (isLoading) {
+        return <div className="text-center py-20 text-2xl">Loading...</div>;
+    }
 
     if (!beat) {
         return <div className="text-center py-20 text-2xl">Beat not found.</div>;
     }
 
-    const isCurrentlyPlaying = currentBeat?.id === beat.id && isPlaying;
+    const isCurrentlyPlaying = currentBeat?.id.toString() === beat.id.toString() && isPlaying;
 
     const handlePlayClick = () => {
-        playBeat(beat, BEATS);
+        if (allBeats) {
+            playBeat(beat, allBeats);
+        }
     }
     
     const licenses = [
@@ -115,7 +122,7 @@ const BeatDetailPage: React.FC = () => {
                  <div className="mt-24">
                     <h2 className="text-3xl font-bold mb-8">Related Beats</h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {relatedBeats.map(rb => <BeatCard key={rb.id} beat={rb} playlist={BEATS}/>)}
+                        {relatedBeats.map(rb => <BeatCard key={rb.id} beat={rb} playlist={relatedBeats}/>)}
                     </div>
                 </div>
             )}

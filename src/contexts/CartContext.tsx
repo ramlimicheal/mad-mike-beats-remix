@@ -4,7 +4,7 @@ import { Beat, CartItem } from '../types';
 interface CartContextType {
   items: CartItem[];
   addToCart: (beat: Beat, licenseType: 'basic' | 'premium' | 'exclusive') => void;
-  removeFromCart: (beatId: number) => void;
+  removeFromCart: (beatId: string | number) => void;
   clearCart: () => void;
   totalAmount: number;
   itemCount: number;
@@ -27,8 +27,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
   };
 
-  const removeFromCart = (beatId: number) => {
-    setItems(prev => prev.filter(item => item.beat.id !== beatId));
+  const removeFromCart = (beatId: string | number) => {
+    setItems(prev => prev.filter(item => item.beat.id.toString() !== beatId.toString()));
   };
 
   const clearCart = () => {

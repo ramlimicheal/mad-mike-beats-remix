@@ -1,6 +1,6 @@
 
 export interface Beat {
-  id: number;
+  id: string | number;
   title: string;
   artist: string;
   bpm: number;
