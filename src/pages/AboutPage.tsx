@@ -1,117 +1,55 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Music2, Award, Target, Zap } from 'lucide-react';
+import { ShineBorder } from '../components/ui/shine-border';
 
 const AboutPage: React.FC = () => {
-  return (
-    <div className="min-h-screen bg-zinc-950 py-12 px-4">
-      <div className="container mx-auto max-w-4xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            About Mad Mike Productions
-          </h1>
-          <p className="text-xl text-zinc-400">
-            Crafting premium beats for artists worldwide since 2015
-          </p>
-        </motion.div>
+    return (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div className="text-center mb-16">
+                <h1 className="text-4xl font-extrabold tracking-tight">About Mad Mike Productions</h1>
+                <p className="mt-4 text-lg text-zinc-400 max-w-2xl mx-auto">The mind behind the music.</p>
+            </div>
 
-        {/* Story Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-zinc-900 rounded-lg p-8 mb-12 border border-zinc-800"
-        >
-          <h2 className="text-3xl font-bold text-white mb-6">Our Story</h2>
-          <div className="space-y-4 text-zinc-300">
-            <p>
-              Mad Mike Productions started with a simple mission: to provide high-quality, 
-              industry-ready beats that empower artists to create their best work. What began 
-              as a passion project in a bedroom studio has grown into a full-fledged production 
-              house serving artists across the globe.
-            </p>
-            <p>
-              With over 8 years of experience in music production, we've worked with hundreds 
-              of artists, from emerging talents to established names in the industry. Our beats 
-              have been featured on streaming platforms worldwide, accumulating millions of plays 
-              and helping artists achieve their musical dreams.
-            </p>
-            <p>
-              We specialize in multiple genres including trap, lo-fi, R&B, drill, and boom bap, 
-              ensuring that every artist can find the perfect sound for their vision. Each beat 
-              is crafted with attention to detail, using professional-grade equipment and mixing 
-              techniques to ensure the highest quality.
-            </p>
-          </div>
-        </motion.div>
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-12 items-center">
+                <div className="md:col-span-2">
+                    <img src="https://picsum.photos/seed/madmike/600/800" alt="Mad Mike" className="rounded-lg object-cover w-full h-full"/>
+                </div>
+                <div className="md:col-span-3">
+                    <h2 className="text-3xl font-bold mb-4 text-zinc-100">My Philosophy</h2>
+                    <p className="text-zinc-300 text-lg mb-6 leading-relaxed">
+                        Music is more than just a collection of sounds; it's a feeling, a story, a moment captured in time. My goal as a producer is to create soundscapes that not only sound good but also feel right. I believe every artist has a unique story to tell, and my role is to provide the perfect sonic canvas for that story to unfold.
+                    </p>
+                    <p className="text-zinc-300 text-lg leading-relaxed">
+                        With over a decade of experience in music production, I've honed my craft across various genres, from the hard-hitting drums of trap to the soulful melodies of R&B. Each beat is meticulously crafted with a focus on quality, emotion, and originality.
+                    </p>
+                </div>
+            </div>
+            
+            <div className="relative overflow-hidden mt-24 bg-zinc-950 p-12 rounded-lg">
+                <ShineBorder />
+                <h2 className="text-3xl font-bold text-center mb-10">The Process & Studio</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                    <div>
+                        <h3 className="text-2xl font-semibold mb-4 text-zinc-100">Behind the Scenes</h3>
+                        <p className="text-zinc-300 leading-relaxed mb-4">
+                            My creative process always starts with an idea—a simple melody, a drum pattern, or even a mood. From there, I build layers, experimenting with textures and sounds until the track comes alive. I use a combination of analog gear and cutting-edge digital tools to achieve a sound that is both timeless and modern.
+                        </p>
+                        <p className="text-zinc-300 leading-relaxed">
+                            My studio is my sanctuary, equipped with industry-standard hardware and software to ensure every beat meets the highest quality standards. From classic synthesizers to the latest VSTs, I have a vast arsenal of tools to bring any musical vision to life.
+                        </p>
+                    </div>
+                    <img src="https://picsum.photos/seed/studio/800/600" alt="Studio" className="rounded-lg"/>
+                </div>
+            </div>
 
-        {/* Values Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-          {[
-            {
-              icon: Music2,
-              title: 'Quality First',
-              description: 'Every beat is produced to industry standards with professional mixing and mastering.',
-            },
-            {
-              icon: Zap,
-              title: 'Instant Delivery',
-              description: 'Get your beats immediately after purchase. No waiting, no hassle.',
-            },
-            {
-              icon: Target,
-              title: 'Artist-Focused',
-              description: 'Flexible licensing options designed to support artists at every stage of their career.',
-            },
-            {
-              icon: Award,
-              title: 'Proven Results',
-              description: 'Our beats have helped artists achieve millions of streams and chart success.',
-            },
-          ].map((value, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 + i * 0.1 }}
-              className="bg-zinc-900 rounded-lg p-6 border border-zinc-800"
-            >
-              <value.icon className="h-10 w-10 text-amber-500 mb-4" />
-              <h3 className="text-xl font-bold text-white mb-2">{value.title}</h3>
-              <p className="text-zinc-400">{value.description}</p>
-            </motion.div>
-          ))}
+            <div className="mt-24 text-center">
+                 <h2 className="text-3xl font-bold text-center mb-10">Achievements & Collaborations</h2>
+                 <p className="text-zinc-400 text-lg max-w-3xl mx-auto">
+                    I've had the privilege of working with a diverse range of talented artists, both independent and signed. My productions have been featured on streaming platforms, radio, and television, accumulating millions of streams worldwide. I'm grateful for every collaboration and excited for what the future holds.
+                 </p>
+            </div>
+
         </div>
-
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
-          className="bg-zinc-900 rounded-lg p-8 border border-zinc-800"
-        >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { value: '500+', label: 'Happy Artists' },
-              { value: '100+', label: 'Premium Beats' },
-              { value: '10M+', label: 'Total Streams' },
-              { value: '8+', label: 'Years Experience' },
-            ].map((stat, i) => (
-              <div key={i} className="text-center">
-                <p className="text-4xl font-bold text-purple-500 mb-2">{stat.value}</p>
-                <p className="text-zinc-400">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default AboutPage;

@@ -1,193 +1,126 @@
-import React, { useState } from 'react';
+import React, { useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Play, ShoppingCart, Music, Clock, Key, Tag } from 'lucide-react';
 import { BEATS } from '../constants';
 import { usePlayer } from '../contexts/PlayerContext';
 import { useCart } from '../contexts/CartContext';
+import BeatCard from '../components/BeatCard';
+import { ShineBorder } from '../components/ui/shine-border';
+import { SoundCloudEmbed } from '../components/SoundCloudEmbed';
+
+const PlayIcon = () => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 mr-2"><path fillRule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.647c1.295.742 1.295 2.545 0 3.286L7.279 20.99c-1.25.717-2.779-.217-2.779-1.643V5.653z" clipRule="evenodd" /></svg>;
+const PauseIcon = () => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 mr-2"><path fillRule="evenodd" d="M6.75 5.25a.75.75 0 00-.75.75v12c0 .414.336.75.75.75h3a.75.75 0 00.75-.75v-12a.75.75 0 00-.75-.75h-3zm7.5 0a.75.75 0 00-.75.75v12c0 .414.336.75.75.75h3a.75.75 0 00.75-.75v-12a.75.75 0 00-.75-.75h-3z" clipRule="evenodd" /></svg>;
 
 const BeatDetailPage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const { playBeat, setPlaylist } = usePlayer();
-  const { addToCart } = useCart();
-  const [selectedLicense, setSelectedLicense] = useState<'basic' | 'premium' | 'exclusive'>('basic');
+    const { id } = useParams<{ id: string }>();
+    const beat = useMemo(() => BEATS.find(b => b.id === Number(id)), [id]);
+    const { playBeat, currentBeat, isPlaying } = usePlayer();
+    const { addToCart } = useCart();
+    
+    const relatedBeats = useMemo(() => {
+      if (!beat) return [];
+      return BEATS.filter(b => b.genre === beat.genre && b.id !== beat.id).slice(0, 4);
+    }, [beat]);
 
-  const beat = BEATS.find(b => b.id === Number(id));
+    if (!beat) {
+        return <div className="text-center py-20 text-2xl">Beat not found.</div>;
+    }
 
-  if (!beat) {
+    const isCurrentlyPlaying = currentBeat?.id === beat.id && isPlaying;
+
+    const handlePlayClick = () => {
+        playBeat(beat, BEATS);
+    }
+    
+    const licenses = [
+      { name: 'Basic Lease', type: 'basic' as const, price: beat.price.basic, features: ['MP3 file', 'Sell 2,000 units'] },
+      { name: 'Premium Lease', type: 'premium' as const, price: beat.price.premium, features: ['MP3 & WAV files', 'Sell 10,000 units'] },
+      { name: 'Exclusive Rights', type: 'exclusive' as const, price: beat.price.exclusive, features: ['All files + Stems', 'Unlimited sales', 'Beat removed from store'] },
+    ];
+
+    const handleAddToCart = (licenseType: 'basic' | 'premium' | 'exclusive') => {
+        addToCart(beat, licenseType);
+    };
+
     return (
-      <div className="min-h-screen bg-zinc-950 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-white mb-4">Beat Not Found</h1>
-          <Link to="/beats" className="text-purple-500 hover:text-purple-400">
-            ← Back to Beats
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  const handlePlayBeat = () => {
-    setPlaylist(BEATS);
-    playBeat(beat);
-  };
-
-  const handleAddToCart = () => {
-    addToCart(beat, selectedLicense);
-  };
-
-  const licenseOptions = [
-    { key: 'basic' as const, label: 'Basic', price: beat.price.basic },
-    { key: 'premium' as const, label: 'Premium', price: beat.price.premium },
-    { key: 'exclusive' as const, label: 'Exclusive', price: beat.price.exclusive },
-  ];
-
-  return (
-    <div className="min-h-screen bg-zinc-950 py-12 px-4">
-      <div className="container mx-auto max-w-6xl">
-        <Link to="/beats" className="text-purple-500 hover:text-purple-400 mb-8 inline-block">
-          ← Back to Beats
-        </Link>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Left Column - Artwork & Player */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="relative group mb-6">
-              <img
-                src={beat.artworkUrl}
-                alt={beat.title}
-                className="w-full rounded-lg"
-              />
-              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
-                <button
-                  onClick={handlePlayBeat}
-                  className="flex h-20 w-20 items-center justify-center rounded-full bg-purple-500 hover:bg-purple-600 transition-colors"
-                >
-                  <Play className="h-10 w-10 text-white ml-1" />
-                </button>
-              </div>
-            </div>
-
-            {beat.soundCloudUrl && (
-              <div className="bg-zinc-900 p-4 rounded-lg">
-                <p className="text-sm text-zinc-400 mb-2">SoundCloud Preview</p>
-                <a
-                  href={beat.soundCloudUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-purple-500 hover:text-purple-400 text-sm"
-                >
-                  Listen on SoundCloud →
-                </a>
-              </div>
-            )}
-          </motion.div>
-
-          {/* Right Column - Details */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h1 className="text-4xl font-bold text-white mb-2">{beat.title}</h1>
-            <p className="text-zinc-400 text-lg mb-6">by {beat.artist}</p>
-
-            {/* Beat Details */}
-            <div className="grid grid-cols-2 gap-4 mb-8">
-              <div className="flex items-center gap-2">
-                <Clock className="h-5 w-5 text-purple-500" />
-                <div>
-                  <p className="text-xs text-zinc-500">BPM</p>
-                  <p className="text-white font-semibold">{beat.bpm}</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <Key className="h-5 w-5 text-purple-500" />
-                <div>
-                  <p className="text-xs text-zinc-500">Key</p>
-                  <p className="text-white font-semibold">{beat.key}</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <Music className="h-5 w-5 text-purple-500" />
-                <div>
-                  <p className="text-xs text-zinc-500">Genre</p>
-                  <p className="text-white font-semibold">{beat.genre}</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <Tag className="h-5 w-5 text-purple-500" />
-                <div>
-                  <p className="text-xs text-zinc-500">Mood</p>
-                  <p className="text-white font-semibold">{beat.mood}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Tags */}
-            <div className="mb-8">
-              <p className="text-sm text-zinc-400 mb-2">Tags</p>
-              <div className="flex flex-wrap gap-2">
-                {beat.tags.map(tag => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1 bg-zinc-800 text-zinc-300 rounded-full text-sm"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* License Selection */}
-            <div className="mb-8">
-              <p className="text-lg font-semibold text-white mb-4">Select License</p>
-              <div className="space-y-3">
-                {licenseOptions.map(option => (
-                  <button
-                    key={option.key}
-                    onClick={() => setSelectedLicense(option.key)}
-                    className={`w-full p-4 rounded-lg border-2 transition-all ${
-                      selectedLicense === option.key
-                        ? 'border-purple-500 bg-purple-500/10'
-                        : 'border-zinc-800 bg-zinc-900 hover:border-zinc-700'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="text-white font-semibold">{option.label}</span>
-                      <span className="text-purple-500 font-bold text-xl">
-                        ${option.price}
-                      </span>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                {/* Left Column: Artwork & Info */}
+                <div className="lg:col-span-1">
+                    <img src={beat.artworkUrl} alt={beat.title} className="w-full rounded-lg shadow-lg mb-6" />
+                    
+                    {/* SoundCloud Player */}
+                    {beat.soundCloudUrl ? (
+                        <div className="mb-6">
+                            <SoundCloudEmbed 
+                                url={beat.soundCloudUrl} 
+                                height={166}
+                                color="fbbf24"
+                            />
+                        </div>
+                    ) : (
+                        <button 
+                            onClick={handlePlayClick}
+                            className="w-full flex items-center justify-center bg-white text-black font-bold px-8 py-3 rounded-md hover:bg-zinc-200 transition-colors mb-6"
+                        >
+                            {isCurrentlyPlaying ? <PauseIcon /> : <PlayIcon />}
+                            {isCurrentlyPlaying ? 'Pause' : 'Play'}
+                        </button>
+                    )}
+                    <div className="relative overflow-hidden mt-8 bg-zinc-900 p-6 rounded-lg">
+                        <ShineBorder />
+                        <h3 className="text-xl font-bold mb-4 text-zinc-100">Beat Info</h3>
+                        <div className="space-y-3 text-zinc-400">
+                            <div className="flex justify-between"><span>Genre:</span> <span className="font-semibold text-white">{beat.genre}</span></div>
+                            <div className="flex justify-between"><span>Mood:</span> <span className="font-semibold text-white">{beat.mood}</span></div>
+                            <div className="flex justify-between"><span>BPM:</span> <span className="font-semibold text-white">{beat.bpm}</span></div>
+                            <div className="flex justify-between"><span>Key:</span> <span className="font-semibold text-white">{beat.key}</span></div>
+                        </div>
                     </div>
-                  </button>
-                ))}
-              </div>
+                </div>
+
+                {/* Right Column: Title, Licenses */}
+                <div className="lg:col-span-2">
+                    <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-2 text-zinc-100">{beat.title}</h1>
+                    <p className="text-xl text-zinc-400 mb-8">Produced by {beat.artist}</p>
+                    
+                    <h2 className="text-3xl font-bold border-b border-zinc-800 pb-4 mb-6 text-zinc-100">Licensing Options</h2>
+                    <div className="space-y-6">
+                        {licenses.map(license => (
+                            <div key={license.name} className="relative overflow-hidden bg-zinc-900 rounded-lg p-6 flex flex-col md:flex-row items-center justify-between transition-colors">
+                                <ShineBorder />
+                                <div>
+                                    <h3 className="text-xl font-semibold text-zinc-100">{license.name}</h3>
+                                    <ul className="text-zinc-400 list-disc list-inside mt-2 text-sm">
+                                        {license.features.map(f => <li key={f}>{f}</li>)}
+                                    </ul>
+                                </div>
+                                <div className="mt-4 md:mt-0 text-center md:text-right">
+                                    <p className="text-2xl font-bold text-zinc-100">${license.price}</p>
+                                    <button
+                                        onClick={() => handleAddToCart(license.type)}
+                                        className="mt-2 bg-zinc-800 text-white font-semibold px-6 py-2 rounded-md hover:bg-zinc-700 transition-colors text-sm"
+                                    >
+                                        Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                     <p className="text-center mt-6 text-zinc-400 text-sm">Need more options? <Link to="/licensing" className="text-zinc-300 hover:underline">View Full Licensing Details</Link></p>
+                </div>
             </div>
 
-            {/* Add to Cart Button */}
-            <button
-              onClick={handleAddToCart}
-              className="w-full py-4 bg-purple-500 text-white rounded-lg font-semibold hover:bg-purple-600 transition-colors flex items-center justify-center gap-2"
-            >
-              <ShoppingCart className="h-5 w-5" />
-              Add to Cart - ${beat.price[selectedLicense]}
-            </button>
-
-            <Link
-              to="/licensing"
-              className="block text-center mt-4 text-sm text-purple-500 hover:text-purple-400"
-            >
-              View License Details →
-            </Link>
-          </motion.div>
+            {/* Related Beats */}
+            {relatedBeats.length > 0 && (
+                 <div className="mt-24">
+                    <h2 className="text-3xl font-bold mb-8">Related Beats</h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {relatedBeats.map(rb => <BeatCard key={rb.id} beat={rb} playlist={BEATS}/>)}
+                    </div>
+                </div>
+            )}
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default BeatDetailPage;
