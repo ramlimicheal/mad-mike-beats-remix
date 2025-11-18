@@ -45,7 +45,7 @@ const BeatsPage: React.FC = () => {
 
             {/* Filters */}
             <div className="relative bg-gradient-to-br from-zinc-900 to-zinc-800 p-6 rounded-2xl mb-8 flex flex-col md:flex-row gap-4 border border-zinc-700/50 overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="flex-grow relative z-10">
                     <div className="relative">
                         <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -56,15 +56,15 @@ const BeatsPage: React.FC = () => {
                             placeholder="Search by title or tag (e.g., 'synth', 'dark')"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full h-12 pl-12 pr-4 rounded-xl bg-zinc-800/80 backdrop-blur-sm text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                            className="w-full h-12 pl-12 pr-4 rounded-xl bg-zinc-800/80 backdrop-blur-sm text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300"
                         />
                     </div>
                 </div>
                 <div className="flex gap-4 relative z-10">
-                    <select value={genre} onChange={e => setGenre(e.target.value)} className="w-full md:w-48 h-12 px-4 rounded-xl bg-zinc-800/80 backdrop-blur-sm text-white border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 cursor-pointer hover:border-purple-500/50">
+                    <select value={genre} onChange={e => setGenre(e.target.value)} className="w-full md:w-48 h-12 px-4 rounded-xl bg-zinc-800/80 backdrop-blur-sm text-white border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300 cursor-pointer hover:border-amber-500/50">
                         {genres.map(g => <option key={g} value={g}>{g}</option>)}
                     </select>
-                    <select value={mood} onChange={e => setMood(e.target.value)} className="w-full md:w-48 h-12 px-4 rounded-xl bg-zinc-800/80 backdrop-blur-sm text-white border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 cursor-pointer hover:border-purple-500/50">
+                    <select value={mood} onChange={e => setMood(e.target.value)} className="w-full md:w-48 h-12 px-4 rounded-xl bg-zinc-800/80 backdrop-blur-sm text-white border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300 cursor-pointer hover:border-amber-500/50">
                         {moods.map(m => <option key={m} value={m}>{m}</option>)}
                     </select>
                 </div>

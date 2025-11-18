@@ -28,7 +28,7 @@ export const LogoCloud: React.FC = () => {
             >
               <div className="group cursor-pointer">
                 <svg
-                  className="w-24 h-24 fill-zinc-600 group-hover:fill-purple-400 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]"
+                  className="w-24 h-24 fill-zinc-600 group-hover:fill-amber-500 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_15px_rgba(245,158,11,0.5)]"
                   viewBox="0 0 24 24"
                 >
                   <path d={brand.icon} />
