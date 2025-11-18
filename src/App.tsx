@@ -28,6 +28,7 @@ import ContactPage from './pages/ContactPage';
 import AuthPage from './pages/AuthPage';
 import AdminDashboard from './pages/AdminDashboard';
 import CheckoutPage from './pages/CheckoutPage';
+import BookSessionPage from './pages/BookSessionPage';
 
 const App: React.FC = () => {
   return (
@@ -45,6 +46,7 @@ const App: React.FC = () => {
                 <Route path="/licensing" element={<LicensingPage />} />
                 <Route path="/mix-mastering" element={<MixMasteringPage />} />
                 <Route path="/about" element={<AboutPage />} />
+                <Route path="/book-session" element={<BookSessionPage />} />
                 <Route path="/contact" element={<ContactPage />} />
                 <Route path="/auth" element={<AuthPage />} />
                 <Route path="/admin" element={<AdminDashboard />} />

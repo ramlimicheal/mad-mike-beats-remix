@@ -81,8 +81,8 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="mt-8 pt-8 border-t border-zinc-800 text-center">
-          <p className="text-sm text-zinc-400">
-            © {new Date().getFullYear()} Mad Mike Productions. All rights reserved.
+          <p className="text-zinc-500 text-sm">
+            © 2025 MM Productions. All rights reserved.
           </p>
         </div>
       </div>
