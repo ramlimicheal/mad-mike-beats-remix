@@ -56,7 +56,7 @@ const AudioPlayer: React.FC = () => {
               </button>
               <button
                 onClick={togglePlayPause}
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-500 text-white hover:bg-purple-600 transition-colors"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:from-amber-600 hover:to-orange-600 transition-all"
               >
                 {isPlaying ? (
                   <Pause className="h-5 w-5" />
