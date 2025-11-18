@@ -9,33 +9,33 @@ export const FeaturedBeats: React.FC = () => {
   const featuredBeats = BEATS.slice(0, 3);
   
   return (
-    <section className="bg-zinc-950 py-20">
+    <section className="bg-zinc-950 py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-10">
           <p className="text-amber-500 text-sm font-semibold uppercase tracking-wider mb-2">
             Featured Beats
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">
+          <h2 className="text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">
             Start Listening Now
           </h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
+          <p className="text-zinc-400 text-base max-w-2xl mx-auto">
             Preview our top beats and purchase instantly with flexible licensing options
           </p>
         </div>
 
         {/* Featured Beats Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {featuredBeats.map((beat) => (
             <FeaturedBeatCard key={beat.id} beat={beat} />
           ))}
         </div>
 
         {/* View All CTA */}
-        <div className="text-center mt-12">
+        <div className="text-center mt-10">
           <Link
             to="/beats"
-            className="inline-flex items-center gap-2 bg-white text-black font-semibold px-8 py-3 rounded-lg hover:bg-zinc-200 transition-colors"
+            className="inline-flex items-center gap-2 bg-white text-black font-semibold px-6 py-2.5 rounded-lg hover:bg-zinc-200 transition-colors"
           >
             <span>View All Beats</span>
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
