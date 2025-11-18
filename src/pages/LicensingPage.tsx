@@ -33,17 +33,17 @@ const LicensingPage: React.FC = () => {
                 license.isDark
                   ? 'bg-zinc-900 border-2 border-zinc-800'
                   : 'bg-zinc-900/50 border border-zinc-800'
-              } ${license.isPopular ? 'ring-2 ring-purple-500' : ''}`}
+              } ${license.isPopular ? 'ring-2 ring-amber-500' : ''}`}
             >
               {license.isPopular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-purple-500 text-white text-sm font-semibold rounded-full">
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-amber-500 to-orange-500 text-black text-sm font-semibold rounded-full">
                   Most Popular
                 </div>
               )}
 
               <div className="text-center mb-6">
                 <h3 className="text-2xl font-bold text-white mb-2">{license.title}</h3>
-                <p className="text-4xl font-bold text-purple-500 mb-1">{license.price}</p>
+                <p className="text-4xl font-bold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent mb-1">{license.price}</p>
                 {license.priceSubtitle && (
                   <p className="text-sm text-zinc-400">{license.priceSubtitle}</p>
                 )}
@@ -68,7 +68,7 @@ const LicensingPage: React.FC = () => {
                 ))}
               </ul>
 
-              <button className="w-full py-3 bg-purple-500 text-white rounded-lg font-semibold hover:bg-purple-600 transition-colors">
+              <button className="w-full py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-black rounded-lg font-semibold hover:from-amber-400 hover:to-orange-400 transition-all shadow-lg shadow-amber-500/20">
                 Get Started
               </button>
             </motion.div>

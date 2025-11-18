@@ -44,7 +44,7 @@ const BeatsPage: React.FC = () => {
                   onClick={() => setSelectedGenre(null)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                     selectedGenre === null
-                      ? 'bg-purple-500 text-white'
+                      ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-black'
                       : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'
                   }`}
                 >
@@ -56,7 +56,7 @@ const BeatsPage: React.FC = () => {
                     onClick={() => setSelectedGenre(genre)}
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                       selectedGenre === genre
-                        ? 'bg-purple-500 text-white'
+                        ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-black'
                         : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'
                     }`}
                   >
@@ -73,7 +73,7 @@ const BeatsPage: React.FC = () => {
                   onClick={() => setSelectedMood(null)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                     selectedMood === null
-                      ? 'bg-purple-500 text-white'
+                      ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-black'
                       : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'
                   }`}
                 >
@@ -85,7 +85,7 @@ const BeatsPage: React.FC = () => {
                     onClick={() => setSelectedMood(mood)}
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                       selectedMood === mood
-                        ? 'bg-purple-500 text-white'
+                        ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-black'
                         : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'
                     }`}
                   >

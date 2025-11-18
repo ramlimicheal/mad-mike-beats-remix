@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BEATS } from '../constants';
 import { usePlayer } from '../contexts/PlayerContext';
-import { SimpleHero } from '../components/SimpleHero';
+import { EnhancedHero } from '../components/EnhancedHero';
 import { FeaturedBeats } from '../components/FeaturedBeats';
 import { BentoGrid } from '../components/BentoGrid';
 import { LogoCloud } from '../components/LogoCloud';
@@ -18,8 +18,8 @@ const HomePage: React.FC = () => {
 
     return (
         <div>
-            {/* Simple Hero with Scrolling Beats */}
-            <SimpleHero />
+            {/* Enhanced Hero with Hero Image */}
+            <EnhancedHero />
 
             {/* Featured Beats with SoundCloud Players */}
             <FeaturedBeats />
