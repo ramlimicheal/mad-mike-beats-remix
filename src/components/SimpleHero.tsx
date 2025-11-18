@@ -67,7 +67,7 @@ export const SimpleHero: React.FC = () => {
   const column3 = BEATS.slice(4, 6);
 
   return (
-    <section className="w-full bg-zinc-950 flex items-center justify-center px-4 sm:px-8 py-20 min-h-[90vh]">
+    <section className="w-full bg-zinc-950 flex items-center justify-center px-4 sm:px-8 py-16 min-h-[85vh]">
       <style>{`
         @keyframes scroll-up {
           0% {
@@ -87,11 +87,11 @@ export const SimpleHero: React.FC = () => {
         }
       `}</style>
 
-      <div className="max-w-7xl mx-auto w-full flex items-center gap-12">
+      <div className="max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
         {/* Left side - Content */}
         <div className="flex flex-col w-full max-w-[600px]">
           <div className="mb-6">
-            <AnimatedBadge text="MM PRODUCTIONS" color="#22d3ee" />
+            <AnimatedBadge text="MM PRODUCTIONS" color="#f59e0b" />
           </div>
 
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight">
@@ -110,13 +110,13 @@ export const SimpleHero: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-start gap-3 mb-8">
             <Link
               to="/beats"
-              className="px-6 py-2.5 text-sm bg-white text-black font-medium rounded-lg hover:bg-zinc-200 transition-all"
+              className="px-6 py-2.5 text-sm bg-gradient-to-r from-amber-500 to-orange-500 text-black font-semibold rounded-lg hover:from-amber-400 hover:to-orange-400 transition-all shadow-lg shadow-amber-500/20"
             >
               Browse Beats
             </Link>
             <Link
               to="/licensing"
-              className="px-6 py-2.5 text-sm bg-transparent text-white font-medium border border-zinc-700 rounded-lg hover:border-white hover:bg-white/5 transition-all"
+              className="px-6 py-2.5 text-sm bg-transparent text-white font-medium border border-amber-500/30 rounded-lg hover:border-amber-500 hover:bg-amber-500/10 transition-all"
             >
               View Licensing
             </Link>
@@ -140,7 +140,7 @@ export const SimpleHero: React.FC = () => {
         </div>
 
         {/* Right side - Scrolling beats showcase */}
-        <div className="relative flex items-center w-full max-w-[664px] max-h-[600px] overflow-hidden">
+        <div className="relative flex items-center w-full max-w-[664px] h-[500px] lg:h-[600px] overflow-hidden hidden lg:flex">
           <div className="absolute top-0 w-full h-[100px] bg-gradient-to-b from-zinc-950 to-transparent z-10" />
           <ScrollingColumn beats={column1} animationName="scroll-up" />
           <ScrollingColumn beats={column2} animationName="scroll-down" />
