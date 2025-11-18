@@ -81,7 +81,7 @@ const AboutPage: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.3 + i * 0.1 }}
               className="bg-zinc-900 rounded-lg p-6 border border-zinc-800"
             >
-              <value.icon className="h-10 w-10 text-purple-500 mb-4" />
+              <value.icon className="h-10 w-10 text-amber-500 mb-4" />
               <h3 className="text-xl font-bold text-white mb-2">{value.title}</h3>
               <p className="text-zinc-400">{value.description}</p>
             </motion.div>
