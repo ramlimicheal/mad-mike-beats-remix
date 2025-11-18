@@ -8,7 +8,7 @@ interface AnimatedBadgeProps {
 
 const AnimatedBadge: React.FC<AnimatedBadgeProps> = ({
   text = "MM PRODUCTIONS",
-  color = "#22d3ee",
+  color = "#f59e0b",
   href
 }) => {
   const badge = (
