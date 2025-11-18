@@ -8,8 +8,8 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 240 10% 3.9%;
+    --foreground: 240 4.8% 95.9%;
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -101,5 +101,58 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
   }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #09090b;
+}
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+/* Animated grid background */
+.animated-grid-background {
+  --grid-size: 40px;
+  --dot-color: rgba(255, 255, 255, 0.07);
+  --dot-size: 1px;
+  background-image: 
+    linear-gradient(to right, var(--dot-color) var(--dot-size), transparent var(--dot-size)),
+    linear-gradient(to bottom, var(--dot-color) var(--dot-size), transparent var(--dot-size));
+  background-size: var(--grid-size) var(--grid-size);
+  position: relative;
+  overflow: hidden;
+}
+
+.animated-grid-background::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(168, 85, 247, 0.1) 0%,
+    rgba(168, 85, 247, 0) 35%
+  );
+  animation: move-spotlight 15s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes move-spotlight {
+  0% { transform: translate(25%, 25%); }
+  25% { transform: translate(75%, 25%); }
+  50% { transform: translate(75%, 75%); }
+  75% { transform: translate(25%, 75%); }
+  100% { transform: translate(25%, 25%); }
 }

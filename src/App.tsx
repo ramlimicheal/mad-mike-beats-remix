@@ -1,27 +1,47 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { PlayerProvider } from './contexts/PlayerContext';
+import { CartProvider } from './contexts/CartContext';
 
-const queryClient = new QueryClient();
+import Header from './components/Header';
+import Footer from './components/Footer';
+import AudioPlayer from './components/AudioPlayer';
+import { CustomCursor } from './components/CustomCursor';
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+import HomePage from './pages/HomePage';
+import BeatsPage from './pages/BeatsPage';
+import BeatDetailPage from './pages/BeatDetailPage';
+import LicensingPage from './pages/LicensingPage';
+import MixMasteringPage from './pages/MixMasteringPage';
+import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
+
+const App: React.FC = () => {
+  return (
+    <CartProvider>
+      <PlayerProvider>
+        <BrowserRouter>
+          <div className="min-h-screen bg-zinc-950 text-zinc-300 flex flex-col">
+            <Header />
+            <main className="flex-grow">
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/beats" element={<BeatsPage />} />
+                <Route path="/beats/:id" element={<BeatDetailPage />} />
+                <Route path="/licensing" element={<LicensingPage />} />
+                <Route path="/mix-mastering" element={<MixMasteringPage />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/contact" element={<ContactPage />} />
+              </Routes>
+            </main>
+            <Footer />
+            <AudioPlayer />
+            <CustomCursor />
+          </div>
+        </BrowserRouter>
+      </PlayerProvider>
+    </CartProvider>
+  );
+};
 
 export default App;
