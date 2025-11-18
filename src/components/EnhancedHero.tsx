@@ -41,7 +41,7 @@ const StatCard: React.FC<{ value: string; label: string; delay: string }> = ({
       style={{ animationDelay: delay }}
     >
       <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      <p className="text-2xl font-bold text-white mb-1 group-hover:scale-110 transition-transform duration-300">
+      <p className="text-xl font-bold text-white mb-1 group-hover:scale-110 transition-transform duration-300">
         {value}
       </p>
       <p className="text-zinc-500 text-xs">{label}</p>
@@ -69,14 +69,14 @@ export const EnhancedHero: React.FC = () => {
       <FloatingParticles />
       <GradientOrbs />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           {/* Left Column - Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="space-y-8"
+            className="space-y-6"
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-amber-500/10 border border-amber-500/20 rounded-full">
               <span className="relative flex h-2 w-2">
@@ -86,7 +86,7 @@ export const EnhancedHero: React.FC = () => {
               <span className="text-amber-500 text-sm font-semibold">TRENDING NOW</span>
             </div>
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
               <span className="block bg-gradient-to-r from-white via-zinc-100 to-zinc-300 bg-clip-text text-transparent">
                 Premium Beats
               </span>
@@ -95,15 +95,15 @@ export const EnhancedHero: React.FC = () => {
               </span>
             </h1>
 
-            <p className="text-zinc-400 text-lg max-w-xl">
+            <p className="text-zinc-400 text-base max-w-xl">
               Industry-ready production. Instant delivery. Transparent licensing. 
               Elevate your sound with professionally crafted beats.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-3">
               <Link
                 to="/beats"
-                className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-black font-bold rounded-lg hover:from-amber-400 hover:to-orange-400 transition-all shadow-lg shadow-amber-500/20 hover:shadow-xl hover:shadow-amber-500/30 group"
+                className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-black font-bold rounded-lg hover:from-amber-400 hover:to-orange-400 transition-all shadow-lg shadow-amber-500/20 hover:shadow-xl hover:shadow-amber-500/30 group"
               >
                 <span>Browse Beats</span>
                 <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -112,13 +112,13 @@ export const EnhancedHero: React.FC = () => {
               </Link>
               <Link
                 to="/licensing"
-                className="inline-flex items-center justify-center px-8 py-4 bg-transparent text-white font-semibold border-2 border-zinc-700 rounded-lg hover:border-amber-500 hover:bg-amber-500/5 transition-all"
+                className="inline-flex items-center justify-center px-6 py-3 bg-transparent text-white font-semibold border-2 border-zinc-700 rounded-lg hover:border-amber-500 hover:bg-amber-500/5 transition-all"
               >
                 View Licensing
               </Link>
             </div>
 
-            <div className="grid grid-cols-3 gap-4 pt-8">
+            <div className="grid grid-cols-3 gap-6 pt-6 border-t border-zinc-800">
               <StatCard value="500+" label="Premium Beats" delay="0s" />
               <StatCard value="10K+" label="Happy Artists" delay="0.1s" />
               <StatCard value="50M+" label="Streams" delay="0.2s" />

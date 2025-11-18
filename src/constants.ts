@@ -114,6 +114,14 @@ export const LICENSES: License[] = [
     bestFor: 'Demos & Mixtapes',
     isPopular: false,
     isDark: false,
+    detailedInfo: {
+      whoThisIsFor: "Artists creating demos and mixtapes for promotion",
+      description: [
+        "Perfect for testing your sound before committing to a full release.",
+        "Includes essential features to get started with professional quality files.",
+        "Great for building your fanbase and testing tracks with your audience."
+      ]
+    }
   },
   {
     title: 'Professional',
@@ -133,6 +141,15 @@ export const LICENSES: License[] = [
     bestFor: 'Singles & EPs',
     isPopular: false,
     isDark: true,
+    detailedInfo: {
+      whoThisIsFor: "Serious artists releasing singles and EPs",
+      description: [
+        "Designed for artists ready to release professional tracks on all platforms.",
+        "Includes track stems for complete creative control in mixing and mastering.",
+        "Higher distribution and streaming limits to support your growing audience.",
+        "Perfect for artists looking to establish a professional presence."
+      ]
+    }
   },
   {
     title: 'Unlimited',
@@ -152,6 +169,16 @@ export const LICENSES: License[] = [
     bestFor: 'Albums & Pro Mixes',
     isPopular: true,
     isDark: false,
+    detailedInfo: {
+      whoThisIsFor: "Professional artists and labels releasing albums",
+      description: [
+        "No limits on distribution or streaming - perfect for viral hits.",
+        "Full commercial rights including radio airplay and YouTube monetization.",
+        "Complete creative control with professional track stems included.",
+        "Ideal for established artists, labels, and serious commercial releases.",
+        "The ultimate license for maximum reach and revenue potential."
+      ]
+    }
   },
 ];
 
