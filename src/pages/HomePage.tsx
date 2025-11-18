@@ -1,138 +1,55 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BEATS } from '../constants';
-import AnimatedBadge from '../components/AnimatedBadge';
-
-interface BeatCardProps {
-  beat: {
-    id: number;
-    title: string;
-    artist: string;
-    artworkUrl: string;
-    genre: string;
-  };
-}
-
-const BeatCard: React.FC<BeatCardProps> = ({ beat }) => {
-  return (
-    <div className="relative flex items-end h-[200px] w-[200px] border border-zinc-800 rounded-xl mb-6 overflow-hidden group hover:border-white/20 transition-all cursor-pointer">
-      <div
-        className="absolute inset-0 bg-cover bg-center rounded-xl"
-        style={{
-          backgroundImage: `url(${beat.artworkUrl})`,
-        }}
-      />
-      <div className="relative w-full flex flex-col bg-black/60 backdrop-blur-sm border-t border-zinc-800 rounded-b-xl p-3">
-        <p className="text-white text-sm font-medium truncate">
-          {beat.title}
-        </p>
-        <p className="text-zinc-400 text-xs truncate">
-          {beat.genre}
-        </p>
-      </div>
-    </div>
-  );
-};
-
-interface ScrollingColumnProps {
-  beats: typeof BEATS;
-  animationName: 'scroll-up' | 'scroll-down';
-}
-
-const ScrollingColumn: React.FC<ScrollingColumnProps> = ({
-  beats,
-  animationName,
-}) => {
-  const duplicatedBeats = [...beats, ...beats];
-
-  return (
-    <div
-      className="flex flex-col w-[200px] mr-8"
-      style={{
-        animation: `${animationName} 20s linear infinite`,
-      }}
-    >
-      {duplicatedBeats.map((beat, index) => (
-        <BeatCard key={`${beat.id}-${index}`} beat={beat} />
-      ))}
-    </div>
-  );
-};
+import { usePlayer } from '../contexts/PlayerContext';
+import { EnhancedHero } from '../components/EnhancedHero';
+import { FeaturedBeats } from '../components/FeaturedBeats';
+import { BentoGrid } from '../components/BentoGrid';
+import { LogoCloud } from '../components/LogoCloud';
+import { PricingSection } from '../components/PricingSection';
 
 const HomePage: React.FC = () => {
-  const column1 = BEATS.slice(0, 2);
-  const column2 = BEATS.slice(2, 4);
-  const column3 = BEATS.slice(4, 6);
+    const { setPlaylist } = usePlayer();
 
-  return (
-    <div className="min-h-screen bg-zinc-950">
-      <style>{`
-        @keyframes scroll-up {
-          0% {
-            transform: translateY(0);
-          }
-          100% {
-            transform: translateY(-50%);
-          }
-        }
-        @keyframes scroll-down {
-          0% {
-            transform: translateY(-50%);
-          }
-          100% {
-            transform: translateY(0);
-          }
-        }
-      `}</style>
+    useEffect(() => {
+        setPlaylist(BEATS);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-      {/* Hero Section */}
-      <section className="w-full bg-zinc-950 flex items-center justify-center px-4 sm:px-8 py-12 min-h-[90vh]">
-        <div className="max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
-          {/* Left side - Content */}
-          <div className="flex flex-col w-full lg:w-1/2">
-            <div className="mb-4">
-              <AnimatedBadge text="MM PRODUCTIONS" color="#f59e0b" />
-            </div>
+    return (
+        <div>
+            {/* Enhanced Hero with Animations */}
+            <EnhancedHero />
 
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 leading-tight">
-              <span className="block bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">
-                Premium Beats
-              </span>
-              <span className="block bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">
-                For Serious Artists
-              </span>
-            </h1>
+            {/* Featured Beats with SoundCloud Players */}
+            <FeaturedBeats />
 
-            <p className="text-zinc-400 text-sm mb-6 max-w-md">
-              Industry-ready production. Instant delivery. Transparent licensing.
-            </p>
+            {/* Bento Grid */}
+            <BentoGrid />
 
-            <div className="flex flex-col sm:flex-row items-start gap-3">
-              <Link
-                to="/beats"
-                className="px-6 py-2.5 text-sm bg-gradient-to-r from-amber-500 to-orange-500 text-black font-medium rounded-lg hover:from-amber-400 hover:to-orange-400 transition-all shadow-lg shadow-amber-500/20"
-              >
-                Browse Beats
-              </Link>
-              <Link
-                to="/licensing"
-                className="px-6 py-2.5 text-sm bg-transparent text-white font-medium border border-zinc-700 rounded-lg hover:border-amber-500 hover:bg-amber-500/5 transition-all"
-              >
-                View Licensing
-              </Link>
-            </div>
-          </div>
+            {/* Pricing Section */}
+            <PricingSection />
 
-          {/* Right side - Scrolling Beat Cards (Hidden on mobile) */}
-          <div className="hidden lg:flex flex-row items-start justify-center gap-0 h-[500px] overflow-hidden w-1/2">
-            <ScrollingColumn beats={column1} animationName="scroll-up" />
-            <ScrollingColumn beats={column2} animationName="scroll-down" />
-            <ScrollingColumn beats={column3} animationName="scroll-up" />
-          </div>
+            {/* Logo Cloud */}
+            <LogoCloud />
+
+            {/* Simple CTA */}
+            <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">
+                    Start Creating Today
+                </h2>
+                <p className="text-zinc-400 text-base mb-8 max-w-2xl mx-auto">
+                    Browse our complete catalog and find your perfect sound.
+                </p>
+                <Link
+                    to="/beats"
+                    className="inline-block bg-gradient-to-r from-amber-500 to-orange-500 text-black font-semibold text-sm px-8 py-3.5 rounded-lg hover:from-amber-400 hover:to-orange-400 transition-all shadow-lg shadow-amber-500/20 hover:shadow-xl hover:shadow-amber-500/30"
+                >
+                    Explore All Beats
+                </Link>
+            </section>
         </div>
-      </section>
-    </div>
-  );
+    );
 };
 
 export default HomePage;
