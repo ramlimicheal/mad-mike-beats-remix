@@ -135,7 +135,7 @@ export const EnhancedHero: React.FC = () => {
               transform: `perspective(1000px) rotateY(${mousePosition.x * 0.02}deg) rotateX(${-mousePosition.y * 0.02}deg)`,
             }}
           >
-            <div className="relative rounded-2xl overflow-hidden border border-zinc-800 shadow-2xl shadow-amber-500/10">
+            <div className="relative rounded-2xl overflow-hidden">
               <img
                 src="/hero.png"
                 alt="Music Production Hero"
@@ -143,34 +143,6 @@ export const EnhancedHero: React.FC = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent"></div>
               <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/60 via-transparent to-transparent"></div>
-              
-              {/* Floating player overlay */}
-              <div className="absolute bottom-6 left-6 right-6 bg-zinc-900/80 backdrop-blur-md border border-zinc-800 rounded-xl p-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-500 rounded-lg flex items-center justify-center">
-                    <svg className="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-white font-semibold text-sm">Now Playing</p>
-                    <p className="text-zinc-400 text-xs">Premium Trap Beat</p>
-                  </div>
-                  <div className="flex gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <div
-                        key={i}
-                        className="w-1 bg-amber-500 rounded-full"
-                        style={{
-                          height: `${Math.random() * 20 + 10}px`,
-                          animation: `pulse ${0.6 + Math.random() * 0.4}s ease-in-out infinite`,
-                          animationDelay: `${i * 0.1}s`,
-                        }}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
             </div>
 
             {/* Decorative elements */}

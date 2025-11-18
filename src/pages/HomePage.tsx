@@ -18,7 +18,7 @@ const HomePage: React.FC = () => {
 
     return (
         <div>
-            {/* Enhanced Hero with Hero Image */}
+            {/* Enhanced Hero with Animations */}
             <EnhancedHero />
 
             {/* Featured Beats with SoundCloud Players */}
