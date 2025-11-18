@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { useFeaturedBeats } from '@/hooks/useBeats';
 
 const CheckIcon = () => (
     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -40,13 +42,13 @@ const ClockIcon = () => (
 
 const MixMasteringPage: React.FC = () => {
     const [selectedPackage, setSelectedPackage] = useState<string | null>(null);
+    const { data: featuredBeats = [], isLoading } = useFeaturedBeats();
 
-    const portfolioItems = [
-        { id: 1, image: '/Beat.png', title: 'Hip Hop Mix' },
-        { id: 2, image: '/hero.png', title: 'R&B Master' },
-        { id: 3, image: '/Beat.png', title: 'Pop Production' },
-        { id: 4, image: '/hero.png', title: 'Trap Mix' },
-    ];
+    const portfolioItems = featuredBeats.slice(0, 4).map(beat => ({
+        id: beat.id,
+        image: beat.artworkUrl,
+        title: beat.title
+    }));
 
     const features = [
         {
