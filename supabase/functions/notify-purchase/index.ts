@@ -12,11 +12,32 @@ serve(async (req) => {
   }
 
   try {
+    // Security: Verify service role authentication
+    const authHeader = req.headers.get('Authorization')
+    const serviceRoleKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+    
+    if (!authHeader || !authHeader.includes(serviceRoleKey)) {
+      console.error('Unauthorized access attempt to notify-purchase')
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 401 }
+      )
+    }
+
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!
-    const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
-    const supabase = createClient(supabaseUrl, supabaseKey)
+    const supabase = createClient(supabaseUrl, serviceRoleKey)
 
     const { purchaseId } = await req.json()
+    
+    // Validate purchaseId is a valid UUID
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+    if (!purchaseId || !uuidRegex.test(purchaseId)) {
+      console.error('Invalid purchase ID format:', purchaseId)
+      return new Response(
+        JSON.stringify({ error: 'Invalid purchase ID format' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
+      )
+    }
 
     // Get purchase details with beat info
     const { data: purchase, error: purchaseError } = await supabase

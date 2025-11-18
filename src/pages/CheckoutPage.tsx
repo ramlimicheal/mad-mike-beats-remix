@@ -8,6 +8,27 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from 'sonner';
+import { z } from 'zod';
+
+const checkoutSchema = z.object({
+  name: z.string()
+    .trim()
+    .min(1, 'Name is required')
+    .max(100, 'Name must be less than 100 characters'),
+  email: z.string()
+    .trim()
+    .email('Invalid email address')
+    .max(255, 'Email must be less than 255 characters'),
+  phone: z.string()
+    .trim()
+    .max(20, 'Phone number must be less than 20 characters')
+    .regex(/^[0-9+\-\s()]*$/, 'Invalid phone format')
+    .optional()
+    .or(z.literal('')),
+  termsAccepted: z.boolean().refine((val) => val === true, {
+    message: 'You must accept the terms and conditions',
+  }),
+});
 
 const CheckoutPage: React.FC = () => {
   const { items, totalAmount, clearCart } = useCart();
@@ -28,23 +49,21 @@ const CheckoutPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.termsAccepted) {
-      toast.error('Please accept the terms and conditions');
-      return;
-    }
-
     if (items.length === 0) {
       toast.error('Your cart is empty');
       return;
     }
 
     try {
+      // Validate form data
+      const validated = checkoutSchema.parse(formData);
+
       for (const item of items) {
         await createPurchase.mutateAsync({
           beat_id: item.beat.id.toString(),
-          customer_name: formData.name,
-          customer_email: formData.email,
-          customer_phone: formData.phone || undefined,
+          customer_name: validated.name,
+          customer_email: validated.email,
+          customer_phone: validated.phone || undefined,
           license_type: item.licenseType,
           amount: item.beat.price[item.licenseType],
         });
@@ -54,7 +73,14 @@ const CheckoutPage: React.FC = () => {
       clearCart();
       navigate('/');
     } catch (error: any) {
-      toast.error(error.message || 'Failed to place order');
+      if (error instanceof z.ZodError) {
+        // Display validation errors
+        error.errors.forEach((err) => {
+          toast.error(err.message);
+        });
+      } else {
+        toast.error(error.message || 'Failed to place order');
+      }
     }
   };
 
