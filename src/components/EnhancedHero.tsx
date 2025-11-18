@@ -137,11 +137,12 @@ export const EnhancedHero: React.FC = () => {
           >
             <div className="relative rounded-2xl overflow-hidden border border-zinc-800 shadow-2xl shadow-amber-500/10">
               <img
-                src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&h=800&fit=crop"
-                alt="Music Production"
+                src="/hero.png"
+                alt="Music Production Hero"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/60 via-transparent to-transparent"></div>
               
               {/* Floating player overlay */}
               <div className="absolute bottom-6 left-6 right-6 bg-zinc-900/80 backdrop-blur-md border border-zinc-800 rounded-xl p-4">
