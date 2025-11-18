@@ -1,7 +1,17 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { PlayerProvider } from './contexts/PlayerContext';
 import { CartProvider } from './contexts/CartContext';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -21,9 +31,10 @@ import CheckoutPage from './pages/CheckoutPage';
 
 const App: React.FC = () => {
   return (
-    <CartProvider>
-      <PlayerProvider>
-        <BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <CartProvider>
+        <PlayerProvider>
+          <BrowserRouter>
           <div className="min-h-screen bg-zinc-950 text-zinc-300 flex flex-col">
             <Header />
             <main className="flex-grow">
@@ -44,9 +55,10 @@ const App: React.FC = () => {
             <AudioPlayer />
             <CustomCursor />
           </div>
-        </BrowserRouter>
-      </PlayerProvider>
-    </CartProvider>
+          </BrowserRouter>
+        </PlayerProvider>
+      </CartProvider>
+    </QueryClientProvider>
   );
 };
 
