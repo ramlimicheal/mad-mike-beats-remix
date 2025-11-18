@@ -114,9 +114,9 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
               <span>Total</span>
               <span className="text-amber-400">${totalAmount.toFixed(2)}</span>
             </div>
-            <button className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-black font-bold py-3 rounded-md hover:from-amber-400 hover:to-orange-400 transition-colors shadow-lg shadow-amber-500/20">
+            <a href="/checkout" className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-black font-bold py-3 rounded-md hover:from-amber-400 hover:to-orange-400 transition-colors shadow-lg shadow-amber-500/20 text-center block">
               Proceed to Checkout
-            </button>
+            </a>
             <button
               onClick={clearCart}
               className="w-full bg-zinc-800 text-zinc-300 font-semibold py-2 rounded-md hover:bg-zinc-700 transition-colors text-sm"

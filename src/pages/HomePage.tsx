@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { BEATS } from '../constants';
+import { useBeats } from '../hooks/useBeats';
 import { usePlayer } from '../contexts/PlayerContext';
 import { EnhancedHero } from '../components/EnhancedHero';
 import { FeaturedBeats } from '../components/FeaturedBeats';
@@ -10,11 +10,13 @@ import { PricingSection } from '../components/PricingSection';
 
 const HomePage: React.FC = () => {
     const { setPlaylist } = usePlayer();
+    const { data: beats, isLoading } = useBeats();
 
     useEffect(() => {
-        setPlaylist(BEATS);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        if (beats) {
+            setPlaylist(beats);
+        }
+    }, [beats, setPlaylist]);
 
     return (
         <div>

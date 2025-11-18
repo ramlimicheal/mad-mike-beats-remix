@@ -3,7 +3,7 @@ import { BEATS } from '../constants';
 
 interface BeatCardProps {
   beat: {
-    id: number;
+    id: string | number;
     title: string;
     artist: string;
     artworkUrl: string;

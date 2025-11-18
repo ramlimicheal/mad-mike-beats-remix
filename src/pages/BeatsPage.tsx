@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { BEATS } from '../constants';
+import { useBeats } from '../hooks/useBeats';
 import BeatCard from '../components/BeatCard';
 import { usePlayer } from '../contexts/PlayerContext';
 
@@ -8,23 +8,33 @@ const BeatsPage: React.FC = () => {
     const [genre, setGenre] = useState('All');
     const [mood, setMood] = useState('All');
     const { setPlaylist } = usePlayer();
+    const { data: beats, isLoading } = useBeats();
 
-    const genres = useMemo(() => ['All', ...Array.from(new Set(BEATS.map(b => b.genre)))], []);
-    const moods = useMemo(() => ['All', ...Array.from(new Set(BEATS.map(b => b.mood)))], []);
+    const genres = useMemo(() => {
+        if (!beats) return ['All'];
+        return ['All', ...Array.from(new Set(beats.map(b => b.genre)))];
+    }, [beats]);
+    
+    const moods = useMemo(() => {
+        if (!beats) return ['All'];
+        return ['All', ...Array.from(new Set(beats.map(b => b.mood)))];
+    }, [beats]);
 
     const filteredBeats = useMemo(() => {
-        return BEATS.filter(beat => {
+        if (!beats) return [];
+        return beats.filter(beat => {
             const matchesSearch = beat.title.toLowerCase().includes(searchTerm.toLowerCase()) || beat.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
             const matchesGenre = genre === 'All' || beat.genre === genre;
             const matchesMood = mood === 'All' || beat.mood === mood;
             return matchesSearch && matchesGenre && matchesMood;
         });
-    }, [searchTerm, genre, mood]);
+    }, [beats, searchTerm, genre, mood]);
 
     useEffect(() => {
-        setPlaylist(filteredBeats);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [filteredBeats]);
+        if (filteredBeats.length > 0) {
+            setPlaylist(filteredBeats);
+        }
+    }, [filteredBeats, setPlaylist]);
 
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -61,16 +71,20 @@ const BeatsPage: React.FC = () => {
             </div>
 
             {/* Beat Grid */}
-            {filteredBeats.length > 0 ? (
+            {isLoading ? (
+                <div className="text-center text-zinc-400 py-12">
+                    <p>Loading beats...</p>
+                </div>
+            ) : filteredBeats.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {filteredBeats.map(beat => (
                         <BeatCard key={beat.id} beat={beat} playlist={filteredBeats} />
                     ))}
                 </div>
             ) : (
-                <div className="text-center py-20">
-                    <h3 className="text-2xl font-semibold">No Beats Found</h3>
-                    <p className="text-zinc-400 mt-2">Try adjusting your search or filter criteria.</p>
+                <div className="text-center text-zinc-400 py-12 bg-zinc-900/30 rounded-2xl backdrop-blur-sm border border-zinc-800">
+                    <p className="text-lg font-medium mb-2">No Beats Found</p>
+                    <p className="text-sm">Try adjusting your search or filters</p>
                 </div>
             )}
         </div>
