@@ -1,9 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Play, TrendingUp, Zap, Award } from 'lucide-react';
-import { BEATS, TESTIMONIALS } from '../constants';
-import { usePlayer } from '../contexts/PlayerContext';
+import { BEATS } from '../constants';
+import AnimatedGridBackground from '../components/AnimatedGridBackground';
+import AnimatedBadge from '../components/AnimatedBadge';
+import { StatsCounter } from '../components/StatsCounter';
+import { BeatsShowcase } from '../components/BeatsShowcase';
+import { LogoCloud } from '../components/LogoCloud';
+import { FeaturesGrid } from '../components/FeaturesGrid';
+import BeatCard from '../components/BeatCard';
 
 const HomePage: React.FC = () => {
   const featuredBeats = BEATS.slice(0, 6);
@@ -98,4 +103,5 @@ const HomePage: React.FC = () => {
     </div>
   );
 };
+
 export default HomePage;

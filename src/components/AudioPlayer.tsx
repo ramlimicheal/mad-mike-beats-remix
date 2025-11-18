@@ -8,12 +8,10 @@ const AudioPlayer: React.FC = () => {
     isPlaying,
     currentTime,
     duration,
-    volume,
-    togglePlay,
-    seekTo,
-    setVolume,
-    nextBeat,
-    previousBeat,
+    togglePlayPause,
+    seek,
+    nextTrack,
+    prevTrack,
   } = usePlayer();
 
   if (!currentBeat) return null;
@@ -51,13 +49,13 @@ const AudioPlayer: React.FC = () => {
           <div className="flex-1 flex flex-col items-center gap-2">
             <div className="flex items-center gap-4">
               <button
-                onClick={previousBeat}
+                onClick={prevTrack}
                 className="text-zinc-400 hover:text-white transition-colors"
               >
                 <SkipBack className="h-5 w-5" />
               </button>
               <button
-                onClick={togglePlay}
+                onClick={togglePlayPause}
                 className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-500 text-white hover:bg-purple-600 transition-colors"
               >
                 {isPlaying ? (
@@ -67,7 +65,7 @@ const AudioPlayer: React.FC = () => {
                 )}
               </button>
               <button
-                onClick={nextBeat}
+                onClick={nextTrack}
                 className="text-zinc-400 hover:text-white transition-colors"
               >
                 <SkipForward className="h-5 w-5" />
@@ -84,7 +82,7 @@ const AudioPlayer: React.FC = () => {
                 min="0"
                 max={duration || 0}
                 value={currentTime}
-                onChange={e => seekTo(Number(e.target.value))}
+                onChange={e => seek(Number(e.target.value))}
                 className="flex-1 h-1 bg-zinc-700 rounded-lg appearance-none cursor-pointer"
                 style={{
                   background: `linear-gradient(to right, #a855f7 0%, #a855f7 ${progress}%, #3f3f46 ${progress}%, #3f3f46 100%)`
@@ -96,19 +94,8 @@ const AudioPlayer: React.FC = () => {
             </div>
           </div>
 
-          {/* Volume */}
-          <div className="flex items-center gap-2 min-w-[120px]">
-            <Volume2 className="h-5 w-5 text-zinc-400" />
-            <input
-              type="range"
-              min="0"
-              max="1"
-              step="0.01"
-              value={volume}
-              onChange={e => setVolume(Number(e.target.value))}
-              className="w-20 h-1 bg-zinc-700 rounded-lg appearance-none cursor-pointer"
-            />
-          </div>
+          {/* Volume - Removed as not in new PlayerContext */}
+          <div className="min-w-[120px]"></div>
         </div>
       </div>
     </div>
