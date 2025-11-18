@@ -41,7 +41,7 @@ const BeatCard: React.FC<{ beat: Beat; playlist?: Beat[] }> = ({ beat, playlist 
              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300">
                 <button 
                     onClick={handlePlayClick}
-                    className="w-12 h-12 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center text-black shadow-lg shadow-amber-500/30 hover:scale-110 transition-transform duration-200"
+                    className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-500 rounded-full flex items-center justify-center text-black shadow-lg shadow-amber-500/30 hover:scale-110 transition-transform duration-200"
                     aria-label={isCurrentlyPlaying ? `Pause ${beat.title}` : `Play ${beat.title}`}
                 >
                     {isCurrentlyPlaying ? <PauseIcon /> : <PlayIcon />}
