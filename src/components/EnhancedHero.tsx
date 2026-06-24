@@ -145,11 +145,17 @@ export const EnhancedHero: React.FC = () => {
               <div className="absolute w-[90%] aspect-square rounded-full border border-amber-500/5" />
             </div>
 
-            {/* Cutout subject — no box, blends straight into the section */}
+            {/* Cutout subject with organic soft mask on every edge */}
             <img
               src="/hero.png"
               alt="Music Production Hero"
               className="relative w-full h-auto object-contain drop-shadow-[0_20px_50px_rgba(245,158,11,0.25)]"
+              style={{
+                WebkitMaskImage:
+                  'radial-gradient(ellipse 70% 80% at 55% 45%, black 55%, transparent 95%)',
+                maskImage:
+                  'radial-gradient(ellipse 70% 80% at 55% 45%, black 55%, transparent 95%)',
+              }}
             />
           </motion.div>
         </div>
