@@ -135,25 +135,22 @@ export const EnhancedHero: React.FC = () => {
               transform: `perspective(1000px) rotateY(${mousePosition.x * 0.02}deg) rotateX(${-mousePosition.y * 0.02}deg)`,
             }}
           >
-            <div className="relative">
-              <img
-                src="/hero.png"
-                alt="Music Production Hero"
-                className="w-full h-full object-cover mix-blend-luminosity opacity-90"
-                style={{
-                  WebkitMaskImage:
-                    'radial-gradient(ellipse at center, black 40%, transparent 75%)',
-                  maskImage:
-                    'radial-gradient(ellipse at center, black 40%, transparent 75%)',
-                }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-zinc-950 pointer-events-none"></div>
-              <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-transparent to-zinc-950 pointer-events-none"></div>
+            {/* Glow backdrop */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="w-[80%] h-[70%] bg-gradient-to-br from-amber-500/30 via-orange-500/20 to-transparent rounded-full blur-3xl" />
+            </div>
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="w-[55%] aspect-square rounded-full border border-amber-500/20" />
+              <div className="absolute w-[70%] aspect-square rounded-full border border-amber-500/10" />
+              <div className="absolute w-[90%] aspect-square rounded-full border border-amber-500/5" />
             </div>
 
-            {/* Decorative elements */}
-            <div className="absolute -top-4 -right-4 w-24 h-24 bg-amber-500/20 rounded-full blur-2xl"></div>
-            <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-orange-500/20 rounded-full blur-2xl"></div>
+            {/* Cutout subject — no box, blends straight into the section */}
+            <img
+              src="/hero.png"
+              alt="Music Production Hero"
+              className="relative w-full h-auto object-contain drop-shadow-[0_20px_50px_rgba(245,158,11,0.25)]"
+            />
           </motion.div>
         </div>
       </div>
