@@ -135,14 +135,20 @@ export const EnhancedHero: React.FC = () => {
               transform: `perspective(1000px) rotateY(${mousePosition.x * 0.02}deg) rotateX(${-mousePosition.y * 0.02}deg)`,
             }}
           >
-            <div className="relative rounded-2xl overflow-hidden">
+            <div className="relative">
               <img
                 src="/hero.png"
                 alt="Music Production Hero"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover mix-blend-luminosity opacity-90"
+                style={{
+                  WebkitMaskImage:
+                    'radial-gradient(ellipse at center, black 40%, transparent 75%)',
+                  maskImage:
+                    'radial-gradient(ellipse at center, black 40%, transparent 75%)',
+                }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent"></div>
-              <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/60 via-transparent to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-zinc-950 pointer-events-none"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-transparent to-zinc-950 pointer-events-none"></div>
             </div>
 
             {/* Decorative elements */}
